@@ -1,13 +1,29 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import { AppLoading, Asset, Font, Icon, Constants } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers';
+import middleware from './middleware'
+
+
+
+function UdaciStatusBar ({ backgroundColor, ...props }) {
+  return (
+    <View style={{backgroundColor, height: Constants.statusBarHeight}}>
+      <StatusBar translucent backgroundColor={backgroundColor} { ...props} />
+    </View>
+
+  )
+}
+
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
-
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
@@ -19,10 +35,13 @@ export default class App extends React.Component {
       );
     } else {
       return (
+        <Provider store={createStore(reducer, middleware)}>
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <UdaciStatusBar backgroundColor='#077' hidden={false} barStyle='light-content'/>
           <AppNavigator />
         </View>
+        </Provider>
       );
     }
   }
@@ -38,7 +57,7 @@ export default class App extends React.Component {
         ...Icon.Ionicons.font,
         // We include SpaceMono because we use it in HomeScreen.js. Feel free
         // to remove this if you are not using it in your app
-        'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+       // 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
       }),
     ]);
   };

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createMaterialTopTabNavigator,
+          createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import NewDeckScreen from '../screens/NewDeckScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import DeckListScreen from '../screens/DeckListScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -25,16 +27,30 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const DeckListStack = createStackNavigator({
+  DeckList: DeckListScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+DeckListStack.navigationOptions = {
+  tabBarLabel: 'Decks',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'cards-outline' : 'cards-outline'}
+    />
+  ),
+};
+
+const NewDeckStack = createStackNavigator({
+  NewDeck: NewDeckScreen,
+});
+
+NewDeckStack.navigationOptions = {
+  tabBarLabel: 'New Deck',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-add-circle-outline' : 'md-add-circle-outline'}
     />
   ),
 };
@@ -53,8 +69,8 @@ SettingsStack.navigationOptions = {
   ),
 };
 
-export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
+const TabNav = Platform.OS === 'ios'
+                 ? createBottomTabNavigator({ HomeStack, DeckListStack, NewDeckStack, SettingsStack})
+                 : createMaterialTopTabNavigator({ HomeStack, DeckListStack, NewDeckStack, SettingsStack }, {bounces: false})
+
+export default TabNav
