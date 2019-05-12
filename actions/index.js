@@ -3,6 +3,19 @@ export const NEW_DECK = 'NEW_DECK'
 export const ADD_CARD = 'ADD_CARD'
 
 
+export const SET_CURRENT_DECK = 'SET_CURRENT_DECK'
+
+
+export function setCurrentDeck(deckTitle) {
+  return {
+    type: SET_CURRENT_DECK,
+    deckTitle,
+  }
+}
+
+
+
+
 export function receiveEntries (entries) {
   return {
     type: RECEIVE_ENTRIES,

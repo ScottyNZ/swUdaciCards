@@ -22,6 +22,7 @@ class NewDeckScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
+
   state = {
     deckTitle: '',
   };
@@ -53,10 +54,6 @@ class NewDeckScreen extends React.Component {
 
     if( deckTitle === '') return;
 
-    //const key =  deckTitle;
-    //const entry = { title: deckTitle, questions: [] };
-    // Todo: Create new deck ...
-
     this.props.dispatch(newDeck(deckTitle));
 
     createDeck( deckTitle );
@@ -73,7 +70,7 @@ class NewDeckScreen extends React.Component {
 
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-      <Text style={{color:'#a44'}}> {JSON.stringify(this.props.entries)}</Text>
+      {__DEV__ ? null :<Text style={{color:'#a44'}}> {JSON.stringify(this.props.entries)}</Text>}
         <Text style={styles.inputPrompt}>What is the title of your new deck?</Text>
         <TextInput
           value={deckTitle}
@@ -87,7 +84,7 @@ class NewDeckScreen extends React.Component {
   }
 }
 
-function mapStateToProps(entries) {
+function mapStateToProps({entries}) {
   //const deckCount = 3;
   return {
     deckCount: 3,

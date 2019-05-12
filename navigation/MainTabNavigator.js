@@ -8,6 +8,7 @@ import HomeScreen from '../screens/HomeScreen';
 import NewDeckScreen from '../screens/NewDeckScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import DeckListScreen from '../screens/DeckListScreen';
+import DeckDetailsScreen from '../screens/DeckDetailsScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -29,6 +30,7 @@ HomeStack.navigationOptions = {
 
 const DeckListStack = createStackNavigator({
   DeckList: DeckListScreen,
+  DeckDetails: DeckDetailsScreen,
 });
 
 DeckListStack.navigationOptions = {
