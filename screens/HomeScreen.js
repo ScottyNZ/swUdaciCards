@@ -20,7 +20,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
-          <Text>Udacity Project Flashcards</Text>
+          <Text style={{color:'#69f0ae', fontSize: 28}}>Udacity Project Flashcards</Text>
             <Image
               source={
                 __DEV__
@@ -41,7 +41,7 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
   },
   developmentModeText: {
     marginBottom: 20,

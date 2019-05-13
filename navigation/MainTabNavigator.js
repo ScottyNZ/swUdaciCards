@@ -35,7 +35,18 @@ const DeckListStack = createStackNavigator({
   DeckDetails: DeckDetailsScreen,
   NewCard: NewCardScreen,
   Quiz: QuizScreen,
-});
+}, {initialRouteName: 'DeckList',
+    /* The header config from HomeScreen is now here */
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#558b2f',
+      },
+      headerTintColor: '#000',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }
+  });
 
 DeckListStack.navigationOptions = {
   tabBarLabel: 'Decks',
@@ -81,7 +92,7 @@ const TabNav = Platform.OS === 'ios'
                   bounces: false,
                   tabBarOptions: {
                     style: {
-                        backgroundColor: '#077',
+                        backgroundColor: '#2e7d32',
                     },
                   }})
 

@@ -9,9 +9,9 @@ import { connect } from 'react-redux'
 
 function DeckDetails ( { name, onPress, count }) {
 	return (
-			<TouchableOpacity style={styles.btn} onPress={onPress}>
+			<TouchableOpacity style={[styles.btn, count > 0 ? null: {backgroundColor: '#676'}]} onPress={onPress}>
 				<Text style={styles.deckTitle}>{name}</Text>
-				<Text style={{fontSize:20, color: '#bbb'}}>{count} cards</Text>
+				<Text style={{fontSize:20, color: '#444'}}>{count} cards</Text>
 			</TouchableOpacity>
 	)
 }
@@ -19,6 +19,7 @@ function DeckDetails ( { name, onPress, count }) {
 class DeckListScreen extends Component {
 	static navigationOptions = {
     title: 'Deck List',
+    headerStyle: {backgroundColor: '#558b2f',},
   };
   goToDeckDetails = (deckTitle) => {
   	this.props.dispatch(setCurrentDeck(deckTitle));
@@ -63,13 +64,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   deckTitle: {
-  	color: '#D78A29',
+  	color: '#000',
   	fontSize: 30,
 		paddingTop: 20,
 		paddingBottom: 20,
   },
    btn: {
-    backgroundColor: '#555',
+    backgroundColor: '#9e9d24',
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
