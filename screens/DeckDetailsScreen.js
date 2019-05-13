@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 //import
-import { newDeck } from '../actions';
+import { deleteDeck } from '../actions';
 import { fetchCardDecks } from '../utils/api';
 import { createDeck } from '../utils/api.js';
 import { connect } from 'react-redux'
@@ -27,26 +27,47 @@ function DeckDetails ( { name, count }) {
 
 class DeckDetailsScreen extends Component {
 	static navigationOptions = {
-    title: 'Deck Details',
-  };
+    	title: 'Deck Details',
+  	};
+
+	goToNewCard = () => {
+		this.props.navigation.navigate('NewCard');
+	};
+
+	deleteCurrentDeck = () => {
+		this.props.dispatch( deleteDeck( this.props.currentDeck ) );
+	};
 	render() {
 		const { entries, currentDeck } = this.props;
 		return (
 			<ScrollView style={{backgroundColor: '#000', color: '#fff'}}>
-				<View style={styles.container}>
+			{ currentDeck
+
+			?<View style={styles.container}>
 					<DeckDetails
-						key={currentDeck}
-						name={currentDeck}
-						questions={entries[currentDeck].questions}
-						count={1}
-					/>
+							key={currentDeck}
+							name={currentDeck}
+							questions={entries[currentDeck].questions}
+							count={1}
+						/>
 
-					<BasicBtn btnLabel='Add Card' />
+						<BasicBtn
+							btnLabel='Add Card'
+							onPress={this.goToNewCard}
+						 />
 
-					<BasicBtn btnLabel='Start Quiz' />
+						<BasicBtn
+							btnLabel='Start Quiz'
+							onPress={() => {console.log('starting Quiz')} }
+						/>
 
-					<BasicBtn btnLabel='Delete Deck' />
+						<BasicBtn
+							btnLabel='Delete Deck'
+							onPress={this.deleteCurrentDeck}
+						/>
+
 				</View>
+			: <Text style={styles.errorMessage}>Deck not found!</Text>}
 			</ScrollView>
 		)
 	}
@@ -120,6 +141,11 @@ const styles = StyleSheet.create({
     textShadowColor: '#000',
     textShadowOffset: { width: 2, height: 2},
     letterSpacing: 1
+  },
+  errorMessage: {
+  	color: '#d33',
+  	fontSize: 35,
+  	fontWeight: 'bold'
   },
 });
 

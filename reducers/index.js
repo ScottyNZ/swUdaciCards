@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { RECEIVE_ENTRIES, NEW_DECK, ADD_CARD, SET_CURRENT_DECK } from '../actions'
+import { RECEIVE_ENTRIES, NEW_DECK, ADD_CARD, SET_CURRENT_DECK, DELETE_DECK } from '../actions'
 
 
 function appState (state = {currentDeck: ''}, action) {
@@ -14,17 +14,23 @@ function appState (state = {currentDeck: ''}, action) {
         ...state,
         currentDeck: action.deckTitle,
       };
+    case DELETE_DECK :
+      return {
+        ...state,
+        currentDeck: '',
+      };
     default :
       return state;
   }
 }
 
+const INITIAL_STATE = {};
 
-function entries (state = {}, action) {
-  /* console.log("entries Reducer Called");
+function entries (state = INITIAL_STATE, action) {
+  console.log("entries Reducer Called");
   console.log("state:", state);
   console.log("Action:", action.type);
-  console.log("Action:", JSON.stringify(action)); */
+  console.log("Action:", JSON.stringify(action));
   switch (action.type) {
     case RECEIVE_ENTRIES :
       return {
@@ -39,13 +45,19 @@ function entries (state = {}, action) {
         }
       };
     case ADD_CARD :
-      return state ;
-
-  //      ...state,
-  //      ...action.entry
+      return {
+        ...state,
+        [action.deckTitle] : {
+          ...state[action.deckTitle],
+            questions: state[action.deckTitle].questions.concat(action.card)
+        }
+      };
+    case DELETE_DECK :
+      const { [action.deckTitle]: deleted, ...newState } = state;
+      return newState;
 
     default :
-      return state
+      return state;
   }
 }
 
