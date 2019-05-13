@@ -4,10 +4,10 @@ import { RECEIVE_ENTRIES, NEW_DECK, ADD_CARD, SET_CURRENT_DECK, DELETE_DECK } fr
 
 
 function appState (state = {currentDeck: ''}, action) {
-  console.log("appState Reducer Called");
+  /* console.log("appState Reducer Called");
   console.log("state:", state);
   console.log("Action:", action.type);
-  console.log("Action:", JSON.stringify(action));
+  console.log("Action:", JSON.stringify(action)); */
   switch (action.type) {
     case SET_CURRENT_DECK :
       return {
@@ -27,10 +27,6 @@ function appState (state = {currentDeck: ''}, action) {
 const INITIAL_STATE = {};
 
 function entries (state = INITIAL_STATE, action) {
-  console.log("entries Reducer Called");
-  console.log("state:", state);
-  console.log("Action:", action.type);
-  console.log("Action:", JSON.stringify(action));
   switch (action.type) {
     case RECEIVE_ENTRIES :
       return {

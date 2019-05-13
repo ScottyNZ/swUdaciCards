@@ -12,7 +12,7 @@ import middleware from './middleware'
 
 function UdaciStatusBar ({ backgroundColor, ...props }) {
   return (
-    <View style={{backgroundColor, height: Constants.statusBarHeight}}>
+    <View style={{backgroundColor, height: 1 /*Constants.statusBarHeight*/}}>
       <StatusBar translucent backgroundColor={backgroundColor} { ...props} />
     </View>
 
@@ -35,10 +35,10 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <Provider store={createStore(reducer, middleware)}>
+        <Provider store={createStore(reducer)}  >
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <UdaciStatusBar backgroundColor='#077' hidden={false} barStyle='light-content'/>
+          <UdaciStatusBar backgroundColor='#077' hidden={true} barStyle='light-content'/>
           <AppNavigator />
         </View>
         </Provider>

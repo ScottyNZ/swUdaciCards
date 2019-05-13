@@ -74,7 +74,7 @@ class NewCard extends Component {
 }
 
 function mapStateToProps( { appState } ) {
-	console.log("NewwCard.mapStateToProps:", appState )
+	//console.log("NewCard.mapStateToProps:", appState )
 	return {
 		currentDeck: appState.currentDeck
 	}

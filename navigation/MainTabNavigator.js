@@ -10,6 +10,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import DeckListScreen from '../screens/DeckListScreen';
 import DeckDetailsScreen from '../screens/DeckDetailsScreen';
 import NewCardScreen from '../screens/NewCardScreen';
+import QuizScreen from '../screens/QuizScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -33,6 +34,7 @@ const DeckListStack = createStackNavigator({
   DeckList: DeckListScreen,
   DeckDetails: DeckDetailsScreen,
   NewCard: NewCardScreen,
+  Quiz: QuizScreen,
 });
 
 DeckListStack.navigationOptions = {
@@ -75,6 +77,12 @@ SettingsStack.navigationOptions = {
 
 const TabNav = Platform.OS === 'ios'
                  ? createBottomTabNavigator({ HomeStack, DeckListStack, NewDeckStack, SettingsStack})
-                 : createMaterialTopTabNavigator({ HomeStack, DeckListStack, NewDeckStack, SettingsStack }, {bounces: false})
+                 : createMaterialTopTabNavigator({ HomeStack, DeckListStack, NewDeckStack, SettingsStack }, {
+                  bounces: false,
+                  tabBarOptions: {
+                    style: {
+                        backgroundColor: '#077',
+                    },
+                  }})
 
 export default TabNav

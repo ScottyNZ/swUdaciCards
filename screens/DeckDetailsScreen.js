@@ -34,6 +34,10 @@ class DeckDetailsScreen extends Component {
 		this.props.navigation.navigate('NewCard');
 	};
 
+	goToQuiz = () => {
+		this.props.navigation.navigate('Quiz');
+	}
+
 	deleteCurrentDeck = () => {
 		this.props.dispatch( deleteDeck( this.props.currentDeck ) );
 	};
@@ -48,7 +52,7 @@ class DeckDetailsScreen extends Component {
 							key={currentDeck}
 							name={currentDeck}
 							questions={entries[currentDeck].questions}
-							count={1}
+							count={entries[currentDeck].questions.length}
 						/>
 
 						<BasicBtn
@@ -58,7 +62,7 @@ class DeckDetailsScreen extends Component {
 
 						<BasicBtn
 							btnLabel='Start Quiz'
-							onPress={() => {console.log('starting Quiz')} }
+							onPress={this.goToQuiz}
 						/>
 
 						<BasicBtn

@@ -1,42 +1,41 @@
 import React, { Component } from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-//import
-import { setCurrentDeck } from '../actions';
-import { fetchCardDecks } from '../utils/api';
-import { createDeck } from '../utils/api.js';
+
 import { connect } from 'react-redux'
 
 
-function DeckDetails ( { name, onPress, count }) {
+function CardDetails ( { name, onPress, question }) {
 	return (
-			<TouchableOpacity style={styles.btn} onPress={onPress}>
-				<Text style={styles.deckTitle}>{name}</Text>
-				<Text style={{fontSize:20, color: '#bbb'}}>{count} cards</Text>
+			<TouchableOpacity style={styles.btnCard} onPress={onPress}>
+				<Text style={styles.questionText}>{question.question}</Text>
+        <Text style={styles.questionText}>{question.answer}</Text>
 			</TouchableOpacity>
 	)
 }
 
-class DeckListScreen extends Component {
+class QuizScreen extends Component {
 	static navigationOptions = {
-    title: 'Deck List',
+    title: 'Quiz',
   };
-  goToDeckDetails = (deckTitle) => {
-  	this.props.dispatch(setCurrentDeck(deckTitle));
-  	this.props.navigation.navigate('DeckDetails');
+  getNextCard = () => {
+
   }
 	render() {
 		const { navigation } = this.props;
+    console.log("Quiz");
+    console.log("currentDeck: ", this.props.currentDeck);
+    console.log(this.props.quizCards);
 		return (
 			<ScrollView style={{backgroundColor: '#000', color: '#fff'}}>
 				<View style={styles.container}>
 					<Text style={{fontSize: 30, color: '#999',}}>
-						DECKS
+						Start Quiz
 					</Text>
-					{Object.keys(this.props.entries).map((name) => <DeckDetails key={name}
-							name={name}
-						 	questions={this.props.entries[name].questions}
-						 	onPress={() => this.goToDeckDetails(name)}
-						 	count={this.props.entries[name].questions.length} />  )}
+					{this.props.quizCards.questions.map((question) => <CardDetails
+							key={question.question}
+						 	question={question}
+						 	onPress={() => this.goToNextCard}
+						 	/>  )}
 				</View>
 			</ScrollView>
 		)
@@ -45,10 +44,12 @@ class DeckListScreen extends Component {
 
 //  {this.props.decks.map(( {name}) => <DeckDetails key={name} name={name} count={1} />  )}
 // {Object.keys(this.props.decks)}
-function mapStateToProps({entries}) {
+function mapStateToProps( { entries, appState } ) {
+  const { currentDeck } = appState;
 
 	return {
-		entries
+		quizCards: entries[currentDeck],
+    currentDeck,
 	}
 };
 
@@ -62,11 +63,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  deckTitle: {
-  	color: '#D78A29',
-  	fontSize: 30,
+  questionText: {
+  	color: '#d77',
+  	fontSize: 25,
 		paddingTop: 20,
 		paddingBottom: 20,
+  },
+   btnCard: {
+    backgroundColor: '#fff9c4',
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#B44',
+    //height: 45,
+    margin: 15,
+    marginLeft: 40,
+    marginRight: 40,
+    width: "95%",
+    //alignSelf: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 4,
   },
    btn: {
     backgroundColor: '#555',
@@ -96,4 +115,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)( DeckListScreen )
+export default connect(mapStateToProps)( QuizScreen )
