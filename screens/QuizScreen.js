@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-
 import { connect } from 'react-redux'
 
+import { BasicBtn } from '../components/BasicBtn'
 
 function CardDetails ( { name, onPress, question }) {
 	return (
@@ -20,7 +20,7 @@ function CardDetails ( { name, onPress, question }) {
   frontLabel: 'question',
   backLabel: 'answer',
 } */
-class QuizCard extends Component{
+class QuizCard extends Component {
   state = {
     showFront: true,
   }
@@ -43,6 +43,35 @@ class QuizCard extends Component{
 }
 
 
+// todo: pass question to AnswerCard. AnswerCardwill then pass key cardFront,
+// cardBack, etc to QuizCard
+class AnswerCard extends Component {
+render() {
+  const { question } = this.props;
+
+  return (
+    <React.Fragment>
+      <QuizCard
+        key={question.question}
+        cardFront={question.question}
+        cardBack={question.answer}
+      />
+      <BasicBtn
+        style={{color:'#0d0', borderColor: '#0d0'}}
+        btnLabel='Correct'
+        onPress={this.props.onCorrect}
+      />
+      <BasicBtn
+        style={{color:'#d00', borderColor: '#d00'}}
+        btnLabel='Incorrect'
+        onPress={this.props.onCorrect}
+      />
+    </React.Fragment>
+  )
+}
+
+}
+
 
 class QuizScreen extends Component {
 
@@ -64,20 +93,13 @@ class QuizScreen extends Component {
 					<Text style={{fontSize: 30, color: '#999',}}>
 						Start Quiz
 					</Text>
-					{this.props.quizCards.questions.map((question) => <QuizCard
-							key={question.question}
-						 	cardFront={question.question}
-              cardBack={question.answer}
-
-						 	/>  )}
+					{this.props.quizCards.questions.map((question) =>  <AnswerCard question={question}/> )}
 				</View>
 			</ScrollView>
 		)
 	}
 }
 
-//  {this.props.decks.map(( {name}) => <DeckDetails key={name} name={name} count={1} />  )}
-// {Object.keys(this.props.decks)}
 function mapStateToProps( { entries, appState } ) {
   const { currentDeck } = appState;
 
@@ -87,8 +109,6 @@ function mapStateToProps( { entries, appState } ) {
 	}
 };
 
-
-//<Text>{questions.map((question) => <Text>{question.question} </Text>)}</Text>
 
 const styles = StyleSheet.create({
   container: {

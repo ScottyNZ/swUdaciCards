@@ -1,20 +1,13 @@
 import React, { Component } from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import { connect } from 'react-redux'
 //import
 import { deleteDeck } from '../actions';
 import { fetchCardDecks } from '../utils/api';
-import { createDeck } from '../utils/api.js';
-import { connect } from 'react-redux'
+import { createDeck } from '../utils/api';
+import { BasicBtn } from '../components/BasicBtn'
 
-function BasicBtn ({ onPress, btnLabel }) {
-  return (
-    <TouchableOpacity
-      style={Platform.OS ==='ios' ? styles.iosBasicBtn : styles.androidBasicBtn}
-      onPress={onPress}>
-        <Text style={styles.basicBtnText}>{btnLabel}</Text>
-    </TouchableOpacity>
-  )
-}
+
 
 function DeckDetails ( { name, count }) {
 	return (
@@ -46,32 +39,28 @@ class DeckDetailsScreen extends Component {
 		return (
 			<ScrollView style={{backgroundColor: '#000', color: '#fff'}}>
 			{ currentDeck
-
-			?<View style={styles.container}>
-					<DeckDetails
-							key={currentDeck}
-							name={currentDeck}
-							questions={entries[currentDeck].questions}
-							count={entries[currentDeck].questions.length}
-						/>
-
-						<BasicBtn
-							btnLabel='Add Card'
-							onPress={this.goToNewCard}
-						 />
-
-						<BasicBtn
-							btnLabel='Start Quiz'
-							onPress={this.goToQuiz}
-						/>
-
-						<BasicBtn
-							btnLabel='Delete Deck'
-							onPress={this.deleteCurrentDeck}
-						/>
-
-				</View>
-			: <Text style={styles.errorMessage}>Deck not found!</Text>}
+        ? <View style={styles.container}>
+    				<DeckDetails
+              key={currentDeck}
+              name={currentDeck}
+              questions={entries[currentDeck].questions}
+              count={entries[currentDeck].questions.length}
+            />
+            <BasicBtn
+              btnLabel='Add Card'
+              onPress={this.goToNewCard}
+             />
+            <BasicBtn
+              btnLabel='Start Quiz'
+              onPress={this.goToQuiz}
+            />
+            <BasicBtn
+              btnLabel='Delete Deck'
+              onPress={this.deleteCurrentDeck}
+            />
+        </View>
+			  : <Text style={styles.errorMessage}>Deck not found!</Text>
+      }
 			</ScrollView>
 		)
 	}
