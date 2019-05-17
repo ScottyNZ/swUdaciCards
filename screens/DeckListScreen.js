@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 
 function DeckDetails ( { name, onPress, count }) {
 	return (
-			<TouchableOpacity style={[styles.btn, count > 0 ? null: {backgroundColor: '#676'}]} onPress={onPress}>
+			<TouchableOpacity style={[styles.btn, count > 0 ? null: {backgroundColor: '#9e9e9e'}]} onPress={onPress}>
 				<Text style={styles.deckTitle}>{name}</Text>
 				<Text style={{fontSize:20, color: '#444'}}>{count} cards</Text>
 			</TouchableOpacity>
@@ -31,7 +31,7 @@ class DeckListScreen extends Component {
 			<ScrollView style={{backgroundColor: '#000', color: '#fff'}}>
 				<View style={styles.container}>
 					<Text style={{fontSize: 30, color: '#999',}}>
-						DECKS
+						Select a deck
 					</Text>
 					{Object.keys(this.props.entries).map((name) => <DeckDetails key={name}
 							name={name}
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 		paddingBottom: 20,
   },
    btn: {
-    backgroundColor: '#9e9d24',
+    backgroundColor: '#a1887f',
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,

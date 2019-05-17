@@ -13,13 +13,46 @@ function CardDetails ( { name, onPress, question }) {
 	)
 }
 
+
+// todo: pass object to set card Tip and labels
+/* cardSettings : {
+  prompt: 'Tap to show'
+  frontLabel: 'question',
+  backLabel: 'answer',
+} */
+class QuizCard extends Component{
+  state = {
+    showFront: true,
+  }
+  flipCard = () => {
+    this.setState((prevState) => ({
+      showFront: !prevState.showFront,
+    }));
+  };
+  render() {
+    const { question, onPress, cardFront, cardBack } = this.props;
+    const text = this.state.showFront?cardFront:cardBack;
+
+    return (
+        <TouchableOpacity style={styles.btnCard} onPress={this.flipCard}>
+          <Text style={styles.questionText}>{text}</Text>
+          <Text style={styles.cardTips}>Tap to show {this.state.showFront?'answer':'question'}</Text>
+        </TouchableOpacity>
+    )
+  }
+}
+
+
+
 class QuizScreen extends Component {
+
 	static navigationOptions = {
     title: 'Quiz',
   };
   getNextCard = () => {
 
-  }
+  };
+
 	render() {
 		const { navigation } = this.props;
     console.log("Quiz");
@@ -31,10 +64,11 @@ class QuizScreen extends Component {
 					<Text style={{fontSize: 30, color: '#999',}}>
 						Start Quiz
 					</Text>
-					{this.props.quizCards.questions.map((question) => <CardDetails
+					{this.props.quizCards.questions.map((question) => <QuizCard
 							key={question.question}
-						 	question={question}
-						 	onPress={() => this.goToNextCard}
+						 	cardFront={question.question}
+              cardBack={question.answer}
+
 						 	/>  )}
 				</View>
 			</ScrollView>
@@ -70,13 +104,13 @@ const styles = StyleSheet.create({
 		paddingBottom: 20,
   },
    btnCard: {
-    backgroundColor: '#81c784',
+    backgroundColor: '#bcaaa4',
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#9ccc65',
+    borderColor: '#795548',
     //height: 45,
     margin: 15,
     marginLeft: 40,
@@ -86,6 +120,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 4,
+  },
+  cardTips: {
+    fontSize: 16,
   },
    btn: {
     backgroundColor: '#555',
