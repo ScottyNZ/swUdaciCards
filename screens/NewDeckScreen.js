@@ -7,15 +7,8 @@ import { fetchCardDecks, createDeck } from '../utils/api';
 //import { createDeck } from '../utils/api';
 import { connect } from 'react-redux'
 
-function SubmitBtn ({ onPress }) {
-  return (
-    <TouchableOpacity
-      style={Platform.OS ==='ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
-      onPress={onPress}>
-        <Text style={styles.submitBtnText}>SUBMIT</Text>
-    </TouchableOpacity>
-  )
-}
+import { SubmitBtn } from '../components/SubmitBtn'
+
 
 
 class NewDeckScreen extends React.Component {

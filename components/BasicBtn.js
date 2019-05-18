@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 
 
@@ -22,7 +22,7 @@ export function BasicBtn ({ onPress, btnLabel, style, textStyle }) {
 
 const styles = StyleSheet.create({
   iosBasicBtn: {
-    backgroundColor: '#5B481F',
+    backgroundColor: '#444',
     padding: 10,
     borderRadius: 7,
     height: 45,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     marginRight: 40,
   },
   androidBasicBtn: {
-    backgroundColor: '#555',
+    backgroundColor: '#444',
     padding: 40,
     paddingLeft: 30,
     paddingRight: 30,
@@ -43,14 +43,14 @@ const styles = StyleSheet.create({
     //alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 4,
     borderColor: '#5B481F',
     elevation: 4,
 
   },
   basicBtnText: {
-    color: '#aa7727',
+    color: '#ddc52a',
     fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',

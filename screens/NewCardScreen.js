@@ -4,7 +4,10 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Platform,
 import { connect } from 'react-redux';
 
 import { addCard } from '../actions';
+import { SubmitBtn } from '../components/SubmitBtn'
 
+
+/*
 function SubmitBtn ({ onPress }) {
 	return (
 		<TouchableOpacity
@@ -13,7 +16,7 @@ function SubmitBtn ({ onPress }) {
 				<Text style={styles.submitBtnText}>SUBMIT</Text>
 		</TouchableOpacity>
 	)
-}
+} */
 
 
 class NewCard extends Component {
@@ -67,6 +70,7 @@ class NewCard extends Component {
 				/>
 				{/*<SubmitBtn onPress={this.submit} /> */}
 				<SubmitBtn  onPress={this.submit} />
+
 			</KeyboardAvoidingView>
 		)
 	}
