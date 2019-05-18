@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import { LinearGradient } from 'expo';
 
 import { BasicBtn } from '../components/BasicBtn'
 
@@ -57,14 +58,16 @@ render() {
         cardBack={question.answer}
       />
       <BasicBtn
-        style={{color:'#0d0', borderColor: '#0d0'}}
+        style={{color:'#0d0', borderColor: '#0d0', backgroundColor: '#353',}}
+        textStyle={{color: '#bbb'}}
         btnLabel='Correct'
         onPress={this.props.onCorrect}
       />
       <BasicBtn
-        style={{color:'#d00', borderColor: '#d00'}}
+        style={{color:'#d00', borderColor: '#d00', backgroundColor: '#533',}}
+        textStyle={{color: '#bbb'}}
         btnLabel='Incorrect'
-        onPress={this.props.onCorrect}
+        onPress={this.props.onIncorrect}
       />
     </React.Fragment>
   )
@@ -74,26 +77,74 @@ render() {
 
 
 class QuizScreen extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      quizFinished: false,
+      correctCount: 0,
+      incorrectCount: 0,
+      cardIndex : 0,
+      cardCount : this.props.quizCards.questions.length,
+    };
+  }
 	static navigationOptions = {
     title: 'Quiz',
   };
-  getNextCard = () => {
-
+  onCorrect = () => {
+    this.setState( (prevState) => ({
+        correctCount : prevState.correctCount + 1,
+        cardIndex : prevState.cardIndex + 1,
+        quizFinished : (prevState.cardIndex + 1 >= prevState.cardCount),
+      })
+    );
   };
+
+  onIncorrect = () => {
+    this.setState( (prevState) => ({
+        incorrectCount : prevState.incorrectCount + 1,
+        cardIndex : prevState.cardIndex + 1,
+        quizFinished : (prevState.cardIndex + 1 >= prevState.cardCount),
+      })
+    );
+  };
+
 
 	render() {
 		const { navigation } = this.props;
-    console.log("Quiz");
-    console.log("currentDeck: ", this.props.currentDeck);
+    const { cardIndex, cardCount, quizFinished, correctCount } = this.state;
+    const question = this.props.quizCards.questions[cardIndex];
     console.log(this.props.quizCards);
+
+    if (quizFinished) {
+      const percentCorrect = correctCount/cardCount * 100;
+      return (
+        <View style={{flex:1}}>
+        <LinearGradient
+          style={{ padding: 15, alignItems: 'center',  flex:1,}}
+          colors={['#39527a', '#94acd3', '#e3e9f2']}>
+          <Text style={{fontSize: 32, color: '#ddd',}}>
+              Quiz Score: {correctCount}/{cardCount}
+          </Text>
+          <Text style={{fontSize: 28, color: '#ddd',}}>
+              {percentCorrect}%
+          </Text>
+        </LinearGradient>
+        </View>
+      );
+    }
+
 		return (
 			<ScrollView style={{backgroundColor: '#000', color: '#fff'}}>
-				<View style={styles.container}>
-					<Text style={{fontSize: 30, color: '#999',}}>
-						Start Quiz
+				<View style={styles.cardContainer}>
+					<Text style={{fontSize: 24, color: '#333', alignSelf: 'flex-start',}}>
+						Card {cardIndex+1}/{cardCount}
 					</Text>
-					{this.props.quizCards.questions.map((question) =>  <AnswerCard question={question}/> )}
+					<AnswerCard
+            key={question.question}
+            question={question}
+            onCorrect={this.onCorrect}
+            onIncorrect={this.onIncorrect}
+          />
 				</View>
 			</ScrollView>
 		)
@@ -114,6 +165,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cardContainer: {
+    flex: 1,
+    backgroundColor: '#bcaaa4',
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#795548',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -3,14 +3,15 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 
 
-export function BasicBtn ({ onPress, btnLabel, style }) {
+export function BasicBtn ({ onPress, btnLabel, style, textStyle }) {
 
   const propsStyle = style?style:{};
+  const propsTextStyle = textStyle?textStyle:{};
   return (
     <TouchableOpacity
       style={[Platform.OS ==='ios' ? styles.iosBasicBtn : styles.androidBasicBtn, propsStyle]}
       onPress={onPress}>
-        <Text style={styles.basicBtnText}>{btnLabel}</Text>
+        <Text style={[styles.basicBtnText, propsTextStyle]}>{btnLabel}</Text>
     </TouchableOpacity>
   );
 }
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
-    textShadowColor: '#000',
+    textShadowColor: '#0008',
     textShadowOffset: { width: 2, height: 2},
     letterSpacing: 1
   },
