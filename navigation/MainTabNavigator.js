@@ -4,7 +4,7 @@ import { createStackNavigator, createMaterialTopTabNavigator,
           createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+//import HomeScreen from '../screens/HomeScreen';
 import NewDeckScreen from '../screens/NewDeckScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import DeckListScreen from '../screens/DeckListScreen';
@@ -12,6 +12,8 @@ import DeckDetailsScreen from '../screens/DeckDetailsScreen';
 import NewCardScreen from '../screens/NewCardScreen';
 import QuizScreen from '../screens/QuizScreen';
 
+
+/*
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 });
@@ -29,6 +31,8 @@ HomeStack.navigationOptions = {
     />
   ),
 };
+
+*/
 
 const DeckListStack = createStackNavigator({
   DeckList: DeckListScreen,
@@ -87,8 +91,8 @@ SettingsStack.navigationOptions = {
 };
 
 const TabNav = Platform.OS === 'ios'
-                 ? createBottomTabNavigator({ HomeStack, DeckListStack, NewDeckStack, SettingsStack})
-                 : createMaterialTopTabNavigator({ HomeStack, DeckListStack, NewDeckStack, SettingsStack }, {
+                 ? createBottomTabNavigator({ DeckListStack, NewDeckStack, SettingsStack})
+                 : createMaterialTopTabNavigator({ DeckListStack, NewDeckStack, SettingsStack }, {
                   bounces: false,
                   tabBarOptions: {
                     style: {

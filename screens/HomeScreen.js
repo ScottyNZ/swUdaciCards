@@ -8,19 +8,29 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import { Constants} from 'expo';
 
 export default class HomeScreen extends React.Component {
+  state = {
+    status: null,
+    notifications: null,
+    errorMessage: null,
+  }
   static navigationOptions = {
     header: null,
   };
 
+
+
   render() {
+    const { status, notifications, errorMessage } = this.state;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
           <Text style={{color:'#69f0ae', fontSize: 28}}>Udacity Project Flashcards</Text>
+          <Text style={{color:'#69f0ae', fontSize: 28}}>Notification Status: {notifications}</Text>
+          <Text style={{color:'#69f0ae', fontSize: 28}}>Error Status: { errorMessage}</Text>
             <Image
               source={
                 __DEV__
@@ -29,6 +39,7 @@ export default class HomeScreen extends React.Component {
               }
               style={styles.welcomeImage}
             />
+
           </View>
         </ScrollView>
       </View>

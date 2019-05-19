@@ -7,6 +7,7 @@ import { fetchCardDecks } from '../utils/api';
 import { createDeck } from '../utils/api';
 import { BasicBtn } from '../components/BasicBtn'
 
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 
 function DeckDetails ( { name, count }) {
@@ -29,6 +30,8 @@ class DeckDetailsScreen extends Component {
 
 	goToQuiz = () => {
 		this.props.navigation.navigate('Quiz');
+    clearLocalNotification()
+      .then(setLocalNotification);
 	}
 
 	deleteCurrentDeck = () => {

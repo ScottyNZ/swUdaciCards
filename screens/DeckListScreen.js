@@ -34,7 +34,7 @@ class DeckListScreen extends Component {
 						Select a deck
 					</Text>
 					{Object.keys(this.props.entries).map((name) => <DeckDetails key={name}
-							name={name}
+							name={this.props.entries[name].title}
 						 	questions={this.props.entries[name].questions}
 						 	onPress={() => this.goToDeckDetails(name)}
 						 	count={this.props.entries[name].questions.length} />  )}

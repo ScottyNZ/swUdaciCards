@@ -78,9 +78,7 @@ class NewDeckScreen extends React.Component {
 }
 
 function mapStateToProps({entries}) {
-  //const deckCount = 3;
   return {
-    deckCount: 3,
     entries
   }
 };
