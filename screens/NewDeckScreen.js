@@ -24,7 +24,6 @@ class NewDeckScreen extends React.Component {
   componentDidMount() {
     const { dispatch, entries } = this.props
     if (Object.keys(entries).length === 0 && entries.constructor === Object) {
-      console.log("NewDeck: Fetching Decks");
         fetchCardDecks()
         .then((entries) => dispatch(receiveEntries(entries)))
         .then(({ entries }) => {
@@ -58,8 +57,6 @@ class NewDeckScreen extends React.Component {
   render() {
     const { deckTitle } = this.state;
     const { entries } = this.props;
-    console.log("redux State");
-    console.log(entries);
 
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>

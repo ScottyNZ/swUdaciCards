@@ -68,8 +68,7 @@ function setSampleData () {
 
 
 export function formatCardDecks (cardDecks) {
-  console.log(cardDecks);
-  return cardDecks !== null
+  return cardDecks === null
     ? setSampleData()
     : JSON.parse(cardDecks);
 }
@@ -77,7 +76,6 @@ export function formatCardDecks (cardDecks) {
 
 
 export function fetchCardDecks() {
-  console.log("Fetching Flashcards from AsyncStorage");
   return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
     .then(formatCardDecks)
 }

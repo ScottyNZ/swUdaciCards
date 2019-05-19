@@ -72,7 +72,6 @@ class DeckDetailsScreen extends Component {
 //  {this.props.decks.map(( {name}) => <DeckDetails key={name} name={name} count={1} />  )}
 // {Object.keys(this.props.decks)}
 function mapStateToProps( {entries, appState} ) {
-	console.log("DeckDetails.mapStateToProps:", appState )
 	return {
 		entries,
 		currentDeck: appState.currentDeck

@@ -113,7 +113,6 @@ class QuizScreen extends Component {
 		const { navigation } = this.props;
     const { cardIndex, cardCount, quizFinished, correctCount } = this.state;
     const question = this.props.quizCards.questions[cardIndex];
-    console.log(this.props.quizCards);
 
     if (quizFinished) {
       const percentCorrect = correctCount/cardCount * 100;
