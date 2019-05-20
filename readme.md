@@ -9,6 +9,14 @@ layout and functionality of this application.
 
 This application was initially created using expo-cli and selecting the tabs
 template.
+
+### Storage details
+  Runtime storage is implemented using Redux.
+  Permanent Storage is implemented using AsyncStorage. This is also updated at
+  runtime. This is not the most efficient method to update. Would have been
+  simpler to only update Redux at runtime and then store updates to AsyncStorage
+  on save.
+
 ![swUdaciCards screenshot](Screenshot_DeckList.png)
 
 ## Installation
