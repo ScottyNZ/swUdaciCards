@@ -4,7 +4,7 @@
 
 Flashcard program to help users memorize new vocabulary or concepts.
 This project was developed in order to learn more about the react native and expo
-built tools. It is also a Udacity NanoDegree requirement which described the basic
+built tools. It is also a Udacity NanoDegree project requirement.  The project described the basic
 layout and functionality of this application.
 
 This application was initially created using expo-cli and selecting the tabs
