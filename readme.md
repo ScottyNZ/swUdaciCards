@@ -7,6 +7,8 @@ This project was developed in order to learn more about the react native and exp
 built tools. It is also a Udacity NanoDegree requirement which described the basic
 layout and functionality of this application.
 
+This application was initially created using expo-cli and selecting the tabs
+template.
 ![swUdaciCards screenshot](Screenshot_DeckList.png)
 
 ## Installation
@@ -17,9 +19,13 @@ specifications
   * Device: Samsung Galaxy S5, Model number SM-G906S
   * Expo Client Version: 2.10.6
 
-OS X & Linux:
+ Expo client(https://play.google.com/store/apps/details?id=host.exp.exponent)
+ (npm install expo-cli --global)
+
+Windows OS X & Linux:
 
 Clone repo to your machine with yarn installed.
+From the command line run the following commands.
 
 ```sh
 yarn install
@@ -27,7 +33,9 @@ yarn install
 yarn start
 ```
 From here you should see the Expo CLI. If successful Expo will prompt you to
-either scan the QR code from your android device using the Expo client.
+either  -
+  * scan the QR code using the Expo client on your android device.
+  * or email a link to your device.
 
 
 
@@ -44,10 +52,10 @@ either scan the QR code from your android device using the Expo client.
 
 ## Meta
 
-Scott Wear – scotwear@gmail.com
+ScottyNZ
 
 Distributed under the MIT license. See ``LICENSE`` for more information.
 
-[https://github.com/ScottyNZ/github-link](https://github.com/ScottyNZ/)
+[https://github.com/ScottyNZ/swUdaciCards](https://github.com/ScottyNZ/)
 
 
