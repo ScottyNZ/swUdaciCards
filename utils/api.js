@@ -42,7 +42,7 @@ function setSampleData () {
           answer: 'Heart'
         },
         {
-          question: 'Derm(a), derm(o), dermat(o',
+          question: 'Derm(a), derm(o), dermat(o)',
           answer: 'Skin'
         },
         {
@@ -89,20 +89,36 @@ export function createDeck( deckTitle ) {
 }
 
 
-export function submitEntry({ entry, key }) {
-  return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
-    [key]: entry,
-  }))
+// submitCard accepts deckTitle and card, where card is an object { question, answer }
 
+export function submitCard({ card, deckTitle }) {
+  console.log("submitcard");
+  console.log("card:", card);
+  console.log("deckTitle:", deckTitle);
+  console.log("card:", card);
+  AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
+    .then((results) => {
+      const data = JSON.parse(results);
+      const newValue = {
+        [deckTitle] : {
+          ...data[deckTitle],
+            questions: data[deckTitle].questions.concat(card)
+        }
+      };
+      console.log("submitCard newValue: ", newValue);
+      return(newValue);
+    })
+    .then((newValue) => {
+      return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(newValue));
+    });
 }
 
-export function removeEntry(key) {
+export function removeDeck(deckTitle) {
   return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
     .then((results) => {
       const data = JSON.parse(results);
-      data[key] = undefined;
-      delete data[key]
+      data[deckTitle] = undefined;
+      delete data[deckTitle]
       AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(data))
-    })
-
+    });
 }

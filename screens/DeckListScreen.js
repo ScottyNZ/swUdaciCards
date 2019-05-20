@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-//import
+import { connect } from 'react-redux'
+
 import { setCurrentDeck } from '../actions';
 import { fetchCardDecks } from '../utils/api';
-import { createDeck } from '../utils/api.js';
-import { connect } from 'react-redux'
+import { createDeck } from '../utils/api';
 
 
 function DeckDetails ( { name, onPress, count }) {
@@ -44,8 +44,6 @@ class DeckListScreen extends Component {
 	}
 }
 
-//  {this.props.decks.map(( {name}) => <DeckDetails key={name} name={name} count={1} />  )}
-// {Object.keys(this.props.decks)}
 function mapStateToProps({entries}) {
 
 	return {
@@ -53,8 +51,6 @@ function mapStateToProps({entries}) {
 	}
 };
 
-
-//<Text>{questions.map((question) => <Text>{question.question} </Text>)}</Text>
 
 const styles = StyleSheet.create({
   container: {
@@ -75,12 +71,10 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     paddingRight: 30,
     borderRadius: 4,
-    //height: 45,
     margin: 15,
     marginLeft: 40,
     marginRight: 40,
     width: "80%",
-    //alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,

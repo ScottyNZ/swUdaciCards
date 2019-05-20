@@ -4,19 +4,8 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Platform,
 import { connect } from 'react-redux';
 
 import { addCard } from '../actions';
+import { submitCard } from '../utils/api';
 import { SubmitBtn } from '../components/SubmitBtn'
-
-
-/*
-function SubmitBtn ({ onPress }) {
-	return (
-		<TouchableOpacity
-			style={Platform.OS ==='ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
-			onPress={onPress}>
-				<Text style={styles.submitBtnText}>SUBMIT</Text>
-		</TouchableOpacity>
-	)
-} */
 
 
 class NewCard extends Component {
@@ -37,7 +26,7 @@ class NewCard extends Component {
 		 	 };
 
 		this.props.dispatch( addCard(currentDeck, card) );
-
+		submitCard({ card, deckTitle: currentDeck });
 		this.setState(() => ( {
 			question: '',
 			answer: ''
@@ -68,7 +57,6 @@ class NewCard extends Component {
 					placeholder="Enter answer"
 					name="answer"
 				/>
-				{/*<SubmitBtn onPress={this.submit} /> */}
 				<SubmitBtn  onPress={this.submit} />
 
 			</KeyboardAvoidingView>
@@ -78,7 +66,6 @@ class NewCard extends Component {
 }
 
 function mapStateToProps( { appState } ) {
-	//console.log("NewCard.mapStateToProps:", appState )
 	return {
 		currentDeck: appState.currentDeck
 	}

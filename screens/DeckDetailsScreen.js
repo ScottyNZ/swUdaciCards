@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-import { Alert, View, Text, ScrollView, StyleSheet, TouchableOpacity, Platform } from 'react-native'
-import { connect } from 'react-redux'
-//import
+import React, { Component } from 'react';
+import { Alert, View, Text, ScrollView, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { connect } from 'react-redux';
+
 import { deleteDeck } from '../actions';
-import { fetchCardDecks } from '../utils/api';
-import { createDeck } from '../utils/api';
-import { BasicBtn } from '../components/BasicBtn'
+import { fetchCardDecks, createDeck, removeDeck } from '../utils/api';
+import { BasicBtn } from '../components/BasicBtn';
 
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
@@ -35,6 +34,7 @@ class DeckDetailsScreen extends Component {
   }
 
   deleteCurrentDeck = () => {
+    removeDeck(this.props.currentDeck);
     this.props.dispatch( deleteDeck( this.props.currentDeck ) );
   };
   confirmDeleteDeck = () =>{
