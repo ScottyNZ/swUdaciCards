@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import { Alert, View, Text, ScrollView, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
 //import
 import { deleteDeck } from '../actions';
@@ -11,41 +11,58 @@ import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 
 function DeckDetails ( { name, count }) {
-	return (
-		<View>
-			<Text style={styles.deckTitle}>{name}</Text>
-			<Text style={{fontSize:20, color: '#bbb'}}>{count} cards</Text>
-		</View>
-	)
+  return (
+    <View>
+      <Text style={styles.deckTitle}>{name}</Text>
+      <Text style={{fontSize:20, color: '#bbb'}}>{count} cards</Text>
+    </View>
+  )
 }
 
 class DeckDetailsScreen extends Component {
-	static navigationOptions = {
-    	title: 'Deck Details',
-  	};
+  static navigationOptions = {
+      title: 'Deck Details',
+    };
 
-	goToNewCard = () => {
-		this.props.navigation.navigate('NewCard');
-	};
+  goToNewCard = () => {
+    this.props.navigation.navigate('NewCard');
+  };
 
-	goToQuiz = () => {
-		this.props.navigation.navigate('Quiz');
+  goToQuiz = () => {
     clearLocalNotification()
       .then(setLocalNotification);
-	}
+    this.props.navigation.navigate('Quiz');
+  }
 
-	deleteCurrentDeck = () => {
-		this.props.dispatch( deleteDeck( this.props.currentDeck ) );
-	};
-	render() {
-		const { entries, currentDeck } = this.props;
-		return (
-			<ScrollView style={{backgroundColor: '#000', color: '#fff'}}>
-			{ currentDeck
+  deleteCurrentDeck = () => {
+    this.props.dispatch( deleteDeck( this.props.currentDeck ) );
+  };
+  confirmDeleteDeck = () =>{
+    Alert.alert(
+      'Delete this Deck',
+      'Deleting this Deck will remove it permanently from your device and CANNOT be undone.',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Delete Deck', onPress: () => this.deleteCurrentDeck() },
+      ],
+      {cancelable: false},
+    );
+
+  };
+
+  render() {
+    const { entries, currentDeck } = this.props;
+    return (
+      <ScrollView style={{backgroundColor: '#000', color: '#fff'}}>
+      { currentDeck
         ? <View style={styles.container}>
-    				<DeckDetails
+            <DeckDetails
               key={currentDeck}
-              name={currentDeck}
+              name={this.props.entries[currentDeck].title}
               questions={entries[currentDeck].questions}
               count={entries[currentDeck].questions.length}
             />
@@ -59,23 +76,23 @@ class DeckDetailsScreen extends Component {
             />
             <BasicBtn
               btnLabel='Delete Deck'
-              onPress={this.deleteCurrentDeck}
+              onPress={this.confirmDeleteDeck}
             />
         </View>
-			  : <Text style={styles.errorMessage}>Deck not found!</Text>
+        : <Text style={styles.errorMessage}>Deck not found!</Text>
       }
-			</ScrollView>
-		)
-	}
+      </ScrollView>
+    )
+  }
 }
 
 //  {this.props.decks.map(( {name}) => <DeckDetails key={name} name={name} count={1} />  )}
 // {Object.keys(this.props.decks)}
 function mapStateToProps( {entries, appState} ) {
-	return {
-		entries,
-		currentDeck: appState.currentDeck
-	}
+  return {
+    entries,
+    currentDeck: appState.currentDeck
+  }
 };
 
 
@@ -89,16 +106,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   deckTitle: {
-  	color: '#dba',
-  	fontSize: 35,
-		paddingTop: 20,
-		paddingBottom: 20,
+    color: '#dba',
+    fontSize: 35,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   cardText: {
-  	color: '#aaa',
-  	fontSize: 22,
-		paddingTop: 10,
-		paddingBottom: 10,
+    color: '#aaa',
+    fontSize: 22,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
     iosBasicBtn: {
     backgroundColor: '#5B481F',
@@ -138,9 +155,9 @@ const styles = StyleSheet.create({
     letterSpacing: 1
   },
   errorMessage: {
-  	color: '#d33',
-  	fontSize: 35,
-  	fontWeight: 'bold'
+    color: '#d33',
+    fontSize: 35,
+    fontWeight: 'bold'
   },
 });
 

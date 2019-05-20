@@ -34,27 +34,27 @@ function setSampleData () {
       title: 'Basic Medical',
       questions: [
         {
-          question: 'Brachi/o',
+          question: 'Brachi(o)',
           answer: 'Arm'
         },
         {
-          question: 'Cardi/o',
+          question: 'Cardi(o)',
           answer: 'Heart'
         },
         {
-          question: 'Derm/a, derm/o, dermat/o',
+          question: 'Derm(a), derm(o), dermat(o',
           answer: 'Skin'
         },
         {
-          question: 'Encephal/o',
+          question: 'Encephal(o)',
           answer: 'Brain'
         },
         {
-          question: 'Gastr/o',
+          question: 'Gastr(o)',
           answer: 'Stomach'
         },
         {
-          question: 'Pulmon/o',
+          question: 'Pulmon(o)',
           answer: 'Lungs'
         },
       ]

@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Platform,
   TextInput, KeyboardAvoidingView } from 'react-native';
+import { connect } from 'react-redux'
 
 import { receiveEntries, newDeck } from '../actions';
 import { fetchCardDecks, createDeck } from '../utils/api';
-//import { createDeck } from '../utils/api';
-import { connect } from 'react-redux'
+
 
 import { SubmitBtn } from '../components/SubmitBtn'
 
@@ -49,10 +49,10 @@ class NewDeckScreen extends React.Component {
     this.props.dispatch(newDeck(deckTitle));
 
     createDeck( deckTitle );
-
     this.setState(() => ( {
       deckTitle: '',
     }));
+    this.props.navigation.navigate('DeckDetails');
   };
   render() {
     const { deckTitle } = this.state;
@@ -60,7 +60,7 @@ class NewDeckScreen extends React.Component {
 
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-      {__DEV__ ? null :<Text style={{color:'#a44'}}> {JSON.stringify(this.props.entries)}</Text>}
+
         <Text style={styles.inputPrompt}>What is the title of your new deck?</Text>
         <TextInput
           value={deckTitle}
