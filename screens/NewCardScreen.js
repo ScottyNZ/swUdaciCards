@@ -14,30 +14,39 @@ class NewCard extends Component {
   };
 	state = {
 		question: '',
-		answer: ''
+		answer: '',
+		errorMessage: '',
 	};
 
 	submit = () => {
 		const { currentDeck } = this.props;
 		const { question, answer } = this.state;
 		const card = {
-			question: question,
-		 	answer: answer
-		 	 };
+      question: question,
+      answer: answer
+    };
+    if ((question === '') || (answer === '')) {
+      this.setState(() => ( {
+        errorMessage: 'Warning: Question and Answer fields cannot be empty!'
+      }));
+      return;
+    }
 
 		this.props.dispatch( addCard(currentDeck, card) );
 		submitCard({ card, deckTitle: currentDeck });
 		this.setState(() => ( {
 			question: '',
-			answer: ''
+			answer: '',
+      errorMessage: '',
 		}));
 
 	}
 	render() {
-		const { question, answer } = this.state;
+		const { question, answer, errorMessage } = this.state;
 
 		return	(
 			<KeyboardAvoidingView behavior='padding' style={styles.container}>
+        {errorMessage?<Text style={styles.errorMessage}>{errorMessage}</Text>:null}
 				<Text style={styles.inputLabel}>Question</Text>
 				<TextInput
 
@@ -79,6 +88,17 @@ const styles = StyleSheet.create({
 		paddingTop: 25,
 		backgroundColor: '#000',
 	},
+  errorMessage: {
+    fontSize: 24,
+    color: '#cc0000',
+    width: '95%',
+    /*height: 120, */
+    padding: 8,
+    borderWidth: 2,
+    borderRadius: 4,
+    borderColor: '#cc7575',
+    marginBottom: 20,
+  },
 	input: {
 		fontSize: 28,
 		color: '#FFC300',
@@ -90,9 +110,9 @@ const styles = StyleSheet.create({
 		borderColor: '#757575',
 		marginBottom: 20
 	},
-	inputLabel: {
-		alignSelf: 'flex-start',
-		color: '#D78A29'
+  inputLabel: {
+    alignSelf: 'flex-start',
+    color: '#D78A29'
 	},
 	iosSubmitBtn: {
 		backgroundColor: '#5B481F',

@@ -44,8 +44,6 @@ class QuizCard extends Component {
 }
 
 
-// todo: pass question to AnswerCard. AnswerCardwill then pass key cardFront,
-// cardBack, etc to QuizCard
 class AnswerCard extends Component {
 render() {
   const { question } = this.props;
