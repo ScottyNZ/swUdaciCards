@@ -55,6 +55,8 @@ either  -
 
 ## Release History
 
+* 1.0.1
+    * Fixed: User can submit blank card answer or question bug.
 * 1.0.0
     * Work in progress
 

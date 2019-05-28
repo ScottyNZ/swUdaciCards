@@ -30,8 +30,10 @@ class SettingsScreen extends React.Component {
   }
 
   render() {
+    const { manifest } = Constants;
     return (
       <ScrollView>
+        <Text style={[styles.settingsModeText, {fontWeight: 'bold'}]}>swUdaciCards Version: {manifest.version}</Text>
         <Text style={styles.settingsModeText}>Test Utilities for UdaciCards</Text>
         <Button onPress={this.scheduleLocalNotification} title="Schedule Local Notification in 5 seconds" />
         <Text style={styles.settingsModeText}>Current Deck: {this.props.currentDeck}</Text>
