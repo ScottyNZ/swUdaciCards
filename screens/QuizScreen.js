@@ -106,6 +106,20 @@ class QuizScreen extends Component {
     );
   };
 
+  goToDeckDetails = () => {
+    this.props.navigation.navigate('DeckDetails');
+  }
+
+  goToQuiz = () => {
+    this.setState( () => ({
+      quizFinished: false,
+      correctCount: 0,
+      incorrectCount: 0,
+      cardIndex : 0,
+      cardCount : this.props.quizCards.questions.length,
+    }));
+    this.props.navigation.navigate('Quiz');
+  }
 
 	render() {
 		const { navigation } = this.props;
@@ -125,6 +139,8 @@ class QuizScreen extends Component {
           <Text style={{fontSize: 28, color: '#ddd',}}>
               {percentCorrect}%
           </Text>
+          <BasicBtn onPress={this.goToQuiz} btnLabel='Restart Quiz'/>
+          <BasicBtn onPress={this.goToDeckDetails} btnLabel='Back to Deck'/>
         </LinearGradient>
         </View>
       );

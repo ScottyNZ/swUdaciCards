@@ -55,6 +55,8 @@ either  -
 
 ## Release History
 
+* 1.0.2
+    * Added Feature: At end of quiz 'Restart Quiz' and 'Back to Deck' buttons added
 * 1.0.1
     * Fixed: User can submit blank card answer or question bug.
 * 1.0.0
