@@ -18,6 +18,7 @@ class NewDeckScreen extends React.Component {
 
   state = {
     deckTitle: '',
+    errorMessage: '',
   };
 
 
@@ -44,23 +45,28 @@ class NewDeckScreen extends React.Component {
   submit = () => {
     const { deckTitle } = this.state;
 
-    if( deckTitle === '') return;
-
+    if( deckTitle.trim() === '') {
+      this.setState(() => ( {
+        errorMessage: 'Warning: Deck Title cannot be blank!'
+      }));
+      return;
+    }
     this.props.dispatch(newDeck(deckTitle));
 
     createDeck( deckTitle );
     this.setState(() => ( {
       deckTitle: '',
+      errorMessage: '',
     }));
     this.props.navigation.navigate('DeckDetails');
   };
   render() {
-    const { deckTitle } = this.state;
+    const { deckTitle, errorMessage } = this.state;
     const { entries } = this.props;
 
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-
+        {errorMessage?<Text style={styles.errorMessage}>{errorMessage}</Text>:null}
         <Text style={styles.inputPrompt}>What is the title of your new deck?</Text>
         <TextInput
           value={deckTitle}
@@ -98,6 +104,17 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: '#757575',
     marginBottom: 20
+  },
+  errorMessage: {
+    fontSize: 24,
+    color: '#cc0000',
+    width: '95%',
+    /*height: 120, */
+    padding: 8,
+    borderWidth: 2,
+    borderRadius: 4,
+    borderColor: '#cc7575',
+    marginBottom: 20,
   },
   inputPrompt: {
     fontSize: 36,

@@ -22,10 +22,10 @@ class NewCard extends Component {
 		const { currentDeck } = this.props;
 		const { question, answer } = this.state;
 		const card = {
-      question: question,
-      answer: answer
+      question: question.trim(),
+      answer: answer.trim()
     };
-    if ((question === '') || (answer === '')) {
+    if ((question.trim() === '') || (answer.trim() === '')) {
       this.setState(() => ( {
         errorMessage: 'Warning: Question and Answer fields cannot be empty!'
       }));
